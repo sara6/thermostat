@@ -36,5 +36,36 @@ describe('Thermostat', function(){
 
   });
 
+  describe("#Power saving mode", function(){
+    it ("Is on by default", function() {
+      expect(thermostat.powerSavingMode).toBe(true);
+    });
+  });
+
+  describe("#switchPowerSavingOn", function(){
+    it ("Sets powerSavingMode to true", function(){
+      thermostat.switchPowerSavingOn();
+      expect(thermostat.powerSavingMode).toBe(true);
+    });
+  });
+
+  describe("#switchPowerSavingOff", function(){
+    it ("Sets powerSavingMode to false", function(){
+      thermostat.switchPowerSavingOff();
+      expect(thermostat.powerSavingMode).toBe(false);
+    });
+  });
+
+  describe("#changeMaxTemp", function(){
+    it ("Changes to 25 when powerSavingMode is on", function(){
+      thermostat.switchPowerSavingOn();
+      expect(thermostat.maxTemp).toEqual(25);
+    });
+    it ("Changes to 32 when powerSavingMode is off", function(){
+      thermostat.switchPowerSavingOff();
+      expect(thermostat.maxTemp).toEqual(32);
+    });
+  });
+
 
 });
