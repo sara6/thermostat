@@ -6,7 +6,11 @@ function Thermostat(){
 }
 
 Thermostat.prototype.increaseTemp = function(){
-  this.degrees += 1;
+  if (this.degrees >= this.maxTemp) {
+    throw new Error("Maximum temparature reached");
+  } else {
+    this.degrees += 1;
+  }
 };
 
 Thermostat.prototype.decreaseTemp = function(){
@@ -32,5 +36,19 @@ Thermostat.prototype.changeMaxTemp =  function(){
     this.maxTemp = 25;
   } else {
     this.maxTemp = 32;
+  }
+};
+
+Thermostat.prototype.resetTemp = function(){
+  this.degrees = 20;
+};
+
+Thermostat.prototype.displayColor = function(){
+  if (this.degrees < 18) {
+    return "green";
+  } else if (this.degrees < 25) {
+    return "yellow";
+  } else {
+    return "red";
   }
 };

@@ -12,6 +12,14 @@ describe('Thermostat', function(){
 
   describe('#increaseTemp', function(){
 
+    it ("throws an error if minimum temp is reached", function(){
+      spyOn(thermostat, "degrees");
+      thermostat.degrees = thermostat.maxTemp;
+      expect(function() {
+        thermostat.increaseTemp();
+      }).toThrowError("Maximum temparature reached");
+    });
+
     it ("increases the temparature by 1", function(){
       thermostat.increaseTemp();
       expect(thermostat.degrees).toEqual(21);
@@ -23,7 +31,7 @@ describe('Thermostat', function(){
 
     it ("throws an error if minimum temp is reached", function(){
       spyOn(thermostat, "degrees");
-      thermostat.degrees = 10;
+      thermostat.degrees = thermostat.minTemp;
       expect(function() {
         thermostat.decreaseTemp();
       }).toThrowError("Minimum temparature reached");
@@ -65,6 +73,37 @@ describe('Thermostat', function(){
       thermostat.switchPowerSavingOff();
       expect(thermostat.maxTemp).toEqual(32);
     });
+  });
+
+  describe("#resetTemp", function(){
+
+    it ("resets the temparature back to 20 degrees", function(){
+      thermostat.resetTemp();
+      expect(thermostat.degrees).toEqual(20);
+    });
+
+  });
+
+  describe('#displayColor', function(){
+
+    it("changes the display color to green if < 18 degrees", function(){
+      spyOn(thermostat, "degrees");
+      thermostat.degrees = 17;
+      expect(thermostat.displayColor()).toEqual("green");
+    });
+
+    it("changes the display color to yellow if < 25 degrees", function(){
+      spyOn(thermostat, "degrees");
+      thermostat.degrees = 24;
+      expect(thermostat.displayColor()).toEqual("yellow");
+    });
+
+    it("changes the display color to red if 25 degrees or over", function(){
+      spyOn(thermostat, "degrees");
+      thermostat.degrees = 25;
+      expect(thermostat.displayColor()).toEqual("red");
+    });
+
   });
 
 
