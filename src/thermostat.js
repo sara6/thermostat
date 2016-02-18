@@ -43,12 +43,12 @@ Thermostat.prototype.resetTemp = function(){
   this.degrees = 20;
 };
 
-Thermostat.prototype.displayColor = function(){
+Thermostat.prototype.displayEnergyUsage = function(){
   if (this.degrees < 18) {
-    return "green";
+    return "low-usage";
   } else if (this.degrees < 25) {
-    return "yellow";
+    return "medium-usage";
   } else {
-    return "red";
+    return "high-usage";
   }
 };

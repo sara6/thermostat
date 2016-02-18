@@ -5,27 +5,40 @@ $(document).ready(function(){
 
   $('#increaseTemp').on('click', function(){
     thermostat.increaseTemp();
-    $('#degrees').text(thermostat.degrees);
+    updateDegrees();
   });
 
   $('#decreaseTemp').on('click', function(){
     thermostat.decreaseTemp();
-    $('#degrees').text(thermostat.degrees);
+    updateDegrees();
   });
 
   $('#switchPowerSavingOn').on('click', function(){
     thermostat.switchPowerSavingOn();
     $('#powerSavingModeStatus').text('On');
+    updateDegrees();
   });
 
   $('#switchPowerSavingOff').on('click', function(){
     thermostat.switchPowerSavingOff();
     $('#powerSavingModeStatus').text('Off');
+    updateDegrees();
   });
 
   $('#resetTemp').on('click', function(){
     thermostat.resetTemp();
-    $('#degrees').text(thermostat.degrees);
+    updateDegrees();
   });
+
+  function updateDegrees() {
+    $('#degrees').text(thermostat.degrees);
+    if(thermostat.displayEnergyUsage() === 'low-usage') {
+      $('#degrees').css('color', 'green');
+    } else if(thermostat.displayEnergyUsage() === 'medium-usage') {
+      $('#degrees').css('color', 'yellow');
+    } else {
+      $('#degrees').css('color', 'red');
+    }
+  }
 
 });
